@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'merchant items index page' do
   before :each do
-    @merchant1 = create(:merchant)
-    @merchant2 = create(:merchant)
+    @merchant1 = create(:merchant, name: "CamelsRUs")
+    @merchant2 = create(:merchant, name: "Pickle Store Depot")
 
     @item1 = create(:item, merchant_id: @merchant1.id)
     @item2 = create(:item, merchant_id: @merchant1.id)
@@ -20,6 +20,7 @@ RSpec.describe 'merchant items index page' do
         expect(page).to have_content(@item2.name)
         expect(page).to have_content(@item3.name)
         expect(page).to_not have_content(@item4.name)
+        expect(page).to_not have_content(@merchant2.name)
       end
 
       it 'when I click on an item, it takes to the the show page' do

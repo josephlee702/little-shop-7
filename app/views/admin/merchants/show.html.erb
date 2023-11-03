@@ -1,6 +1,2 @@
-<% flash.each do |type, msg| %>
-  <h4><%= msg %></h4>
-<% end %>
-
 <h2><u><%= @merchant.name %></u></h2>
 <h4><%= link_to "Update Merchant", "/admin/merchants/#{@merchant.id}/edit" %> </h4><br>

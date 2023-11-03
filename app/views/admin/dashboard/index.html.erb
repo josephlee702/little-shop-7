@@ -1,4 +1,11 @@
 <h1><%= "Admin Dashboard" %></h1>
 <h3><%= link_to "Admin Merchants Index", admin_merchants_path %> </h3> 
 <h3><%= link_to "Admin Invoices Index", admin_invoices_path %> </h3>
+<br><br>
+<h3>Top 5 Customers with the Most Successful Transactions:</h3>
+<ol>
+<% @customers.top_5_by_transaction.each do |c| %>
+<li> <%= c.name %></li><br>
+<% end %>
+</ol>
  

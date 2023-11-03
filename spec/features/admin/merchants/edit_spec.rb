@@ -23,6 +23,6 @@ RSpec.describe "the merchants update page" do
     click_on("Submit")
     expect(page).to have_current_path("/admin/merchants/#{@merchant1.id}")
     expect(page).to have_content("Company Test Name")
-    expect(page).to have_content("You have successfully changed the company's name.")
+    expect(page).to have_content("Update Successful")
   end
 end

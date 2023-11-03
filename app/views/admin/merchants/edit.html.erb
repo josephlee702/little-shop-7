@@ -1,5 +1,5 @@
 <h3><u><%= "Edit #{@merchant.name}'s name" %></u><h3>
-<%= form_with url: "/admin/merchants/#{@merchant.id}/edit", method: :patch, local: :true do |m| %>
+<%= form_with url: "/admin/merchants/#{@merchant.id}", method: :patch, local: :true do |m| %>
   <%= m.label :new_name %>
   <%= m.text_field :new_name, value: "#{@merchant.name}" %>
   <%= m.submit "Submit" %>
