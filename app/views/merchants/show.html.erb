@@ -2,3 +2,10 @@
 <h3> Name: <%= @merchant.name %></h3>
 <%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %>
 <%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %>
+
+<h3>Top 5 Customers</h3>
+<% @merchant.top_five_merchant_customers_by_transaction %>
+<% @top.each do |a|%>
+  <%= "#{a.first_name} #{a.last_name} - #{a.transaction_count} successful transactions" %>
+  <div>
+<% end %>
