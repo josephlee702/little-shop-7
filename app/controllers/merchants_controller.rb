@@ -5,7 +5,7 @@ class MerchantsController < ApplicationController
 
   def show
     @merchant = Merchant.find(params[:merchant_id])
-    @top = @merchant.top_five_merchant_customers_by_transaction
-    #require 'pry'; binding.pry
+    require 'pry'; binding.pry
+    #@top = @merchant.top_five_merchant_customers_by_transaction(@merchant.id)
   end
 end
