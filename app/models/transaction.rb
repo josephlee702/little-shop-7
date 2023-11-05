@@ -2,6 +2,7 @@ class Transaction < ApplicationRecord
   enum result: {"failed": 0, "success": 1}
 
   belongs_to :invoice
+  # belongs_to :merchant
 
   validates :credit_card_number, presence: true, numericality: true
   validates :credit_card_expiration_date, presence: true

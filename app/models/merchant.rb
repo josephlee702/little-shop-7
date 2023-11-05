@@ -15,9 +15,9 @@ class Merchant < ApplicationRecord
   #   end
   #   customer_list
   # end
-  def name
-    first_name + " " + last_name
-  end
+  # def name
+  #   first_name + " " + last_name
+  # end
 
   def top_five_merchant_customers_by_transaction
     self.customers
@@ -27,7 +27,7 @@ class Merchant < ApplicationRecord
     .select("customers.*, COUNT(transactions.id) AS transaction_count")
     .order("transaction_count DESC")
     .limit(5)
-
+require 'pry'; binding.pry
       # Customer
     #   .joins("JOIN invoices ON customers.id = invoices.customer_id")
     #   .joins("JOIN transactions ON invoices.id = transactions.invoice_id")
