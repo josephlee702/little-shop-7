@@ -62,6 +62,10 @@ def test_data
   create(:invoice_item, item_id: @item3.id, invoice_id: @incomplete2.id, status: 0)
 
   create(:invoice_item, item_id: @item4.id, invoice_id: @incomplete3.id, status: 0)
+
+  @discount20 = @merchant1.bulk_discounts.create(discount: 20, quantity: 12)
+  @discount15 = @merchant1.bulk_discounts.create(discount: 15, quantity: 10)
+  @discount30 = @merchant1.bulk_discounts.create(discount: 30, quantity: 20)
 end
 
 def test_data_2
