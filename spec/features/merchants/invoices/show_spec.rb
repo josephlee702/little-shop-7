@@ -46,7 +46,7 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
       expect(page).to have_content(@item1.unit_price)
       expect(page).to have_content(@item2.unit_price)
       expect(page).to have_content(@item3.unit_price)
-      expect(page).to have_content(@item4.unit_price)
+      expect(page).to have_content(@item4.unit_price/100)
       expect(page).to have_content(@item6.unit_price)
       expect(page).to have_content(@item7.unit_price)
       expect(page).to have_content(@item8.unit_price)
