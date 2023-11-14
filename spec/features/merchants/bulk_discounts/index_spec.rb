@@ -39,6 +39,7 @@ RSpec.describe "Merchant Bulk Discounts Index" do
       fill_in "Quantity", with: 40
       click_button "Submit"
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      save_and_open_page
       expect(page).to have_content("50% off 40 items")
     end
 
