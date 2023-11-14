@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)' do
   
-  before :each do
-    test_data_2
-    @invoices = [@invoice1, @invoice2, @invoice3]
-  end
-
   describe 'when I visit /merchants/:merchant_id/invoices' do
+    before :each do
+      test_data_2
+      @invoices = [@invoice1, @invoice2, @invoice3]
+    end
+
     it 'shows all the invoices that include at least on of my merchant items' do
       # 15. Merchant Invoice Show Page
       # As a merchant
@@ -117,5 +117,35 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
       expect(@invoice_item1.status).to eq("pending")
     end
   end 
+
+  describe 'USER STORY 6, TOTAL REVENUE AND DISCOUNTED REVENUE' do
+    before :each do
+      test_data
+
+      @test_invoice = create(:invoice, customer_id: @customer1.id)
+      create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
+      create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 14, invoice_id: @test_invoice.id, status: 2)
+      create(:invoice_item, item_id: @item3.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
+    
+      expected_total = 0
+      @test_invoice.invoice_items.each do |ii|
+        expected_total+=(ii.unit_price * ii.quantity)
+      end
+      expected_total = (0.01 * expected_total).round(2)
+      @expected_revenue = sprintf('%.2f', expected_total)
+
+      visit merchant_invoice_path(@merchant1, @test_invoice)
+    end
+
+    it 'when viewing the merchant invoice show page, it displays the total revenue' do
+      expect(page).to have_content("Total Revenue: $#{@expected_revenue}")
+    end
+
+    it "also displays the discounted revenue" do
+      save_and_open_page
+      expect(page).to have_content("Total Discounted Revenue: $384.20")
+    end
+
+  end
 end
 

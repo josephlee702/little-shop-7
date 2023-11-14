@@ -13,8 +13,7 @@
 <b><p>Invoice Date: <%= @invoice.created_at.strftime('%A, %B %d, %Y') %></p></b>
 
 <h3><b><p>Total Revenue: <%= number_to_currency(@invoice.potential_revenue, unit: "$") %></p></b></h3>
-
-<h3>Items on this Invoice:</h3>
+<h3><b><p>Total Discounted Revenue: <%= number_to_currency(@invoice.discounted_revenue, unit: "$") %></p></b></h3>
 
 <h3>Customer Name: <%= @invoice.customer.name %></h3>
 
@@ -37,7 +36,7 @@
           <tr>
             <td><%= item.name %></td>
             <td><%= ii.quantity %></td>
-            <td><%= item.unit_price %></td>
+            <td><%= number_to_currency(ii.price) %></td>
             <td><%= ii.status %></td>
             <td><%= form_with url: "/merchants/#{@invoice.items.first.merchant.id}/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |f| %>
               <%= f.hidden_field :merchant_id, value: item.merchant.id %>
