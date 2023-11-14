@@ -4,12 +4,16 @@
   <div class ="merch_nav_button"><%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %></div>
   <div class ="merch_nav_button"><%= link_to "Merchant Dashboard", "/merchants/#{@merchant.id}" %></div>
   <div class ="merch_current_button">Merchant Discounts</div>
-  <br>
-  <%= link_to "Edit Discount", edit_merchant_bulk_discount_path(@merchant, @bulk_discount) %>
   <br><br><br>
-  <div class="merch_sub"><h3> <%="#{@bulk_discount.discount}% off #{@bulk_discount.quantity} items"%> Bulk Discounts</h3></div>
+  <div class="merch_sub"><h3>Edit Discount Form</h3></div>
   <br><br><br><br>
-  <h2>Percentage of Discount: <%= @bulk_discount.discount %>%</h2>
-  <h2>Quantity Threshold: <%= @bulk_discount.quantity %></h2>
+  
+  <%= form_with url: merchant_bulk_discount_path(@merchant, @bulk_discount), method: :patch, local: :true do |m| %>
+  <%= m.label :new_disc %>
+  <%= m.text_field :new_disc, value: "#{@bulk_discount.discount}" %>
+  <%= m.label :new_quantity %>
+  <%= m.text_field :new_quantity, value: "#{@bulk_discount.quantity}" %>
+  <%= m.submit "Submit" %>
+  <% end %>
 
 </body>

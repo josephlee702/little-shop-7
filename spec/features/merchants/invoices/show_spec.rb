@@ -142,7 +142,6 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
     end
 
     it "also displays the discounted revenue" do
-      save_and_open_page
       expect(page).to have_content("Total Discounted Revenue: $384.20")
     end
 
