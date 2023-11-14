@@ -33,6 +33,7 @@ class Invoice < ApplicationRecord
   end
 
   def discounted_revenue
+    
     total_revenue = 0
     invoice_items.each do |iitem|
       merchant_discounts = iitem.merchant.bulk_discounts
