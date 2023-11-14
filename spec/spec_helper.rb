@@ -90,9 +90,9 @@ def test_data_E5
   @itemB = create(:item, merchant_id: merchantB.id)
   customer = create(:customer)
   @invoice = create(:invoice, customer_id: customer.id)
-  create(:invoice_item, item_id: @itemA1.id, invoice_id: @invoice.id, unit_price: 500, quantity: 12)
-  create(:invoice_item, item_id: @itemA2.id, invoice_id: @invoice.id, unit_price: 500, quantity: 15)
-  create(:invoice_item, item_id: @itemB.id, invoice_id: @invoice.id, unit_price: 1200, quantity: 15)
+  @iitemA1 = create(:invoice_item, item_id: @itemA1.id, invoice_id: @invoice.id, unit_price: 500, quantity: 12)
+  @iitemA2 = create(:invoice_item, item_id: @itemA2.id, invoice_id: @invoice.id, unit_price: 500, quantity: 15)
+  @iitemB = create(:invoice_item, item_id: @itemB.id, invoice_id: @invoice.id, unit_price: 1200, quantity: 15)
   discount20 = merchantA.bulk_discounts.create(discount: 20, quantity: 10)
   discount30 = merchantA.bulk_discounts.create(discount: 30, quantity: 15)
 end

@@ -31,4 +31,14 @@ RSpec.describe InvoiceItem, type: :model do
       expect(testing_invoice.price).to eq(25.99)
     end
   end
+
+  describe '#discounted_price' do
+    it 'returns the discounted price if there are merchant discounts' do
+      test_data_E5
+      calculate_percentA = -((@iitemA2.discounted_price/(@iitemA2.unit_price/100.00))-1.0).round(2)
+      calculate_percentB = -((@iitemB.discounted_price/(@iitemB.unit_price/100.00))-1.0).round(2)
+      expect(calculate_percentA).to eq(0.30) ## Discounted by 30%
+      expect(calculate_percentB).to eq(0) ## Not discounted (No merchant discounts)
+    end
+  end
 end
