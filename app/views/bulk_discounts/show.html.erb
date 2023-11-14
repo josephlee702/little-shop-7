@@ -6,9 +6,8 @@
   <div class ="merch_current_button">Merchant Discounts</div>
   <br><br><br>
   <div class="merch_sub"><h3> <%="#{@bulk_discount.discount}% off #{@bulk_discount.quantity} items"%> Bulk Discounts</h3></div>
-  <br><br><br>
-  <ul>
-
-  </ul>
+  <br><br><br><br>
+  <h2>Percentage of Discount: <%= @bulk_discount.discount %>%</h2>
+  <h2>Quantity Threshold: <%= @bulk_discount.quantity %></h2>
 
 </body>
