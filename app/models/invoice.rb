@@ -33,21 +33,12 @@ class Invoice < ApplicationRecord
   end
 
   def discounted_revenue
-    
     total_revenue = 0
     invoice_items.each do |iitem|
-      merchant_discounts = iitem.merchant.bulk_discounts
-      if merchant_discounts.present?
-        applicable_discounts = merchant_discounts.select {|disc| iitem.quantity >= disc.quantity}
-        if applicable_discounts.present?
-          max_discount = applicable_discounts.max_by{|d| d.discount}
-          discounted_price = iitem.unit_price * (1 - max_discount.discount / 100.0)
-          iitem.update(unit_price: discounted_price)
-        end
-      end
-      total_revenue += iitem.quantity * iitem.unit_price
+      discounted_price = iitem.discounted_price
+      total_revenue += iitem.quantity * discounted_price
     end
-    total_revenue/100.00
+    total_revenue / 100.00
   end
   
 end

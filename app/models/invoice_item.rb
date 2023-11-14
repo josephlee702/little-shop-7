@@ -14,4 +14,15 @@ class InvoiceItem < ApplicationRecord
     (unit_price * 0.01).round(2)
   end
 
+  def discounted_price
+    discounts = merchant.bulk_discounts
+    applicable_discounts = discounts.select{|disc| quantity >= disc.quantity}
+    return unit_price unless applicable_discounts.present?
+    max_discount = applicable_discounts.max_by{|d| d.discount}
+    discounted_price = unit_price * (1-max_discount.discount/100.0)
+
+    update(discounted_price: discounted_price)
+    discounted_price
+  end
+
 end
