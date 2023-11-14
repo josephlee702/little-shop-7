@@ -4,4 +4,5 @@ class BulkDiscount < ApplicationRecord
   validates :discount, presence: true, numericality: true
   validates :quantity, presence: true, numericality: true
 
+
 end

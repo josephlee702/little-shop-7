@@ -16,7 +16,7 @@ RSpec.describe "Merchant Bulk Discounts Index" do
       visit merchant_bulk_discounts_path(@merchant1)
       discounts = @merchant1.bulk_discounts
       discounts.each do |d|
-        expect(page).to have_content("#{d.percentage}% off #{d.quantity} items")
+        expect(page).to have_content("#{d.discount}% off #{d.quantity} items")
       end
     end
 

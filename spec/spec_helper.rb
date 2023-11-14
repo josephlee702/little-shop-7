@@ -66,6 +66,8 @@ def test_data
   @discount20 = @merchant1.bulk_discounts.create(discount: 20, quantity: 12)
   @discount15 = @merchant1.bulk_discounts.create(discount: 15, quantity: 10)
   @discount30 = @merchant1.bulk_discounts.create(discount: 30, quantity: 20)
+  @discount30 = @merchant2.bulk_discounts.create(discount: 30, quantity: 20)
+
 end
 
 def test_data_2

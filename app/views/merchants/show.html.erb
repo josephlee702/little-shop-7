@@ -3,6 +3,7 @@
  <div class ="merch_nav_button"><%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %></div>
  <div class ="merch_nav_button"><%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %></div>
  <div class ="merch_current_button">Merchant Dashboard</div>
+ <div class ="merch_nav_button"><%= link_to "Merchant Discounts", merchant_bulk_discounts_path(@merchant) %></div>
 <h3> Name: <%= @merchant.name %></h3>
 <br><br>
 
