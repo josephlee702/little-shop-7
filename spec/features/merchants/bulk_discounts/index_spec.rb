@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe "Merchant Bulk Discounts Index" do
   before :each do
     test_data 
+    visit merchant_bulk_discounts_path(@merchant1)
   end
 
   describe 'USER STORY 1, MERCHANT BULK DISCOUNTS (BULK DISCOUNTS)' do
@@ -13,7 +14,6 @@ RSpec.describe "Merchant Bulk Discounts Index" do
     end
 
     it 'bulk discounts index page has all bulk discounts listd including percentage discount and quantity thresholds' do
-      visit merchant_bulk_discounts_path(@merchant1)
       discounts = @merchant1.bulk_discounts
       discounts.each do |d|
         expect(page).to have_content("#{d.discount}% off #{d.quantity} items")
@@ -21,10 +21,27 @@ RSpec.describe "Merchant Bulk Discounts Index" do
     end
 
     it 'each bulk discount has a link that can be clicked and redirected to the show page' do
-      visit merchant_bulk_discounts_path(@merchant1)
       click_link "20% off 12 items"
       expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @discount20))
     end
+  end
+
+  describe 'USER STORY 2, MERCHANT BULK DISCOUNT CREATAE' do
+    it 'has a link to create a new discount that will redirect user to form' do
+      expect(page).to have_link("Create New Discount")
+      click_link "Create New Discount"
+      expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
+    end
+
+    it "can fill in the new discount information and create a new discount" do
+      visit new_merchant_bulk_discount_path(@merchant1)
+      fill_in "Percentage of Discount", with: 50
+      fill_in "Quantity", with: 40
+      click_button "Submit"
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      expect(page).to have_content("50% off 40 items")
+    end
+
   end
 
 

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: :index, controller: 'merchants', action: 'show'
     resources :items, on: :member, only: [:index, :new, :create, :update, :show, :edit], controller: "merchant_items" 
     resources :invoices, only: [:index, :show], controller: "merchant_invoices"
-    resources :bulk_discounts, only: [:index, :show]
+    resources :bulk_discounts, only: [:index, :show, :new, :create]
   end 
   
   patch "/merchants/:merchant_id/invoices/:invoices", to: "merchant_invoice_items#update"
