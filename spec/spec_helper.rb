@@ -70,6 +70,33 @@ def test_data
 
 end
 
+def test_data_E3
+  merchantA = create(:merchant)
+  @itemA = create(:item, merchant_id: merchantA.id)
+  @itemB = create(:item, merchant_id: merchantA.id)
+  customer = create(:customer)
+  @invoice = create(:invoice, customer_id: customer.id)
+  create(:invoice_item, item_id: @itemA.id, invoice_id: @invoice.id, unit_price: 500, quantity: 12)
+  create(:invoice_item, item_id: @itemB.id, invoice_id: @invoice.id, unit_price: 1200, quantity: 15)
+  discount20 = merchantA.bulk_discounts.create(discount: 20, quantity: 10)
+  discount30 = merchantA.bulk_discounts.create(discount: 30, quantity: 15)
+end
+
+def test_data_E5
+  merchantA = create(:merchant)
+  merchantB = create(:merchant)
+  @itemA1 = create(:item, merchant_id: merchantA.id)
+  @itemA2 = create(:item, merchant_id: merchantA.id)
+  @itemB = create(:item, merchant_id: merchantB.id)
+  customer = create(:customer)
+  @invoice = create(:invoice, customer_id: customer.id)
+  create(:invoice_item, item_id: @itemA1.id, invoice_id: @invoice.id, unit_price: 500, quantity: 12)
+  create(:invoice_item, item_id: @itemA2.id, invoice_id: @invoice.id, unit_price: 500, quantity: 15)
+  create(:invoice_item, item_id: @itemB.id, invoice_id: @invoice.id, unit_price: 1200, quantity: 15)
+  discount20 = merchantA.bulk_discounts.create(discount: 20, quantity: 10)
+  discount30 = merchantA.bulk_discounts.create(discount: 30, quantity: 15)
+end
+
 def test_data_2
   @merchant1 = create(:merchant, name: "Target")
 

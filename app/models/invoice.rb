@@ -38,7 +38,7 @@ class Invoice < ApplicationRecord
       discounted_price = iitem.discounted_price
       total_revenue += iitem.quantity * discounted_price
     end
-    total_revenue / 100.00
+    total_revenue
   end
   
 end

@@ -70,4 +70,16 @@ RSpec.describe Invoice, type: :model do
       expect(Invoice.sort_by_date).to eq(order)
     end
   end 
+
+  describe '#discounted_revenue' do
+    it 'calculates the total discounted revenue - Example 3' do
+      test_data_E3
+      expect(@invoice.discounted_revenue).to eq(174.00)
+    end
+
+    it 'calculates the total discounted revenue - Example 5' do
+      test_data_E5
+      expect(@invoice.discounted_revenue).to eq(280.50)
+    end
+  end
 end
