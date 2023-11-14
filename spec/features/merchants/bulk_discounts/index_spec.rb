@@ -39,11 +39,22 @@ RSpec.describe "Merchant Bulk Discounts Index" do
       fill_in "Quantity", with: 40
       click_button "Submit"
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
-      save_and_open_page
       expect(page).to have_content("50% off 40 items")
     end
-
   end
 
+  describe 'USER STORY 3, MERCHANT BULK DISCOUNT DELETE' do
+    it 'next to each bulk discount there is a button to delete' do
+      button_count = @merchant1.bulk_discounts.count
+      expect(page).to have_selector('button', text: 'Delete', count: button_count)
+    end
 
+    it "when user clicks a delete button, it removes the discount and redirects to index page" do
+      within("#bulkdiscount-#{@discount15.id}") do
+        click_button "Delete"
+      end
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
+      expect(page).to_not have_content("15% off 10 items")
+    end
+  end
 end
