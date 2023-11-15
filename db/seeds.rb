@@ -6,10 +6,15 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Transaction.destroy_all
-Invoice.destroy_all
-InvoiceItem.destroy_all
-Item.destroy_all
-Merchant.destroy_all
-Customer.destroy_all
+# Transaction.destroy_all
+# Invoice.destroy_all
+# InvoiceItem.destroy_all
+# Item.destroy_all
+# Merchant.destroy_all
+# Customer.destroy_all
 
+Rake::Task["csv_load:all"].invoke
+discount_merchant = Merchant.find(1)
+discount_merchant.bulk_discounts.create(discount: 20, quantity: 5)
+discount_merchant.bulk_discounts.create(discount: 30, quantity: 8)
+discount_merchant.bulk_discounts.create(discount: 50, quantity: 10)

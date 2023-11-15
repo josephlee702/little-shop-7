@@ -39,4 +39,5 @@ RSpec.describe InvoiceItem, type: :model do
       expect(calculate_percentA).to eq(0.30)
     end
   end
+
 end
