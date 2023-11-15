@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_210727) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "discounted_price"
+    t.float "discounted_total"
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
     t.index ["item_id"], name: "index_invoice_items_on_item_id"
   end

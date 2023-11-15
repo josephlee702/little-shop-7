@@ -33,12 +33,10 @@ class Invoice < ApplicationRecord
   end
 
   def discounted_revenue
-    total_revenue = 0
     invoice_items.each do |iitem|
-      discounted_price = iitem.discounted_price
-      total_revenue += iitem.quantity * discounted_price
+      iitem.calc_discounted_total
     end
-    total_revenue
+    invoice_items.sum(:discounted_total).round(2)
   end
   
 end
