@@ -81,4 +81,21 @@ RSpec.describe "Admin Invoices Show" do
     expect(page).to have_content("Cancelled")
   end
 
+  describe 'USER STORY 8, ADMIN INVOICE SHOW PAGE: TOTAL REVENUE AND DISCOUNTED REVENUE' do
+    before :each do
+      test_data
+      test_revenue
+      visit admin_invoice_path(@test_invoice)
+    end
+
+    it 'when visiting the show page, the total revenue from this invoice is displayed' do
+      expect(page).to have_content("Total Potential Revenue: $#{@expected_revenue}")
+    end
+
+    it 'also includes the total discounted revenue' do
+      save_and_open_page
+      expect(page).to have_content("Total Discounted Revenue: $384.20")
+    end
+  end
+
 end
