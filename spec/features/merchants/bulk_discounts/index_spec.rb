@@ -55,7 +55,6 @@ RSpec.describe "Merchant Bulk Discounts Index" do
       end
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1))
       expect(page).to_not have_content("15% off 10 items")
-      save_and_open_page
     end
   end
 end

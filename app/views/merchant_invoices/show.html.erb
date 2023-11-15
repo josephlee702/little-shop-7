@@ -28,25 +28,31 @@
       <th>Quantity</th>
       <th>Unit Price</th>
       <th>Status</th>
+      <th>Bulk Discount</th>
       <th>Status Change</th>
     </tr>
     <% @invoice.items.each do |item| %>
       <% item.invoice_items.each do |ii| %>
-        <% if ii.invoice_id == @invoice.id %>
-          <tr>
-            <td><%= item.name %></td>
-            <td><%= ii.quantity %></td>
-            <td><%= number_to_currency(ii.price) %></td>
-            <td><%= ii.status %></td>
-            <td><%= form_with url: "/merchants/#{@invoice.items.first.merchant.id}/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |f| %>
-              <%= f.hidden_field :merchant_id, value: item.merchant.id %>
-              <%= f.hidden_field :invoice_id, value: @invoice.id %>
-              <%= f.hidden_field :invoice_item_id, value: ii.id %>
-              <%= f.select :status_update, ["pending", "packaged", "shipped"], selected: ii.status %>
-              <%= f.submit "Update Item Status" %>
-            <% end %></td>
-          </tr>
-        <% end %>
+        <div id="invoiceitem-<%= ii.id %>">
+          <% if ii.invoice_id == @invoice.id %>
+            <tr>
+              <td><%= item.name %></td>
+              <td><%= ii.quantity %></td>
+              <td><%= number_to_currency(ii.price) %></td>
+              <td><%= ii.status %></td>
+              <td><% if ii.bulk_discount_applied? == true %>
+                  <%= link_to "Bulk Discount Applied", merchant_bulk_discount_path(@merchant, ii.max_discount) %>
+                  <% end %></td>
+              <td><%= form_with url: "/merchants/#{@invoice.items.first.merchant.id}/invoices/#{@invoice.id}", method: :patch, data: {turbo: false} do |f| %>
+                <%= f.hidden_field :merchant_id, value: item.merchant.id %>
+                <%= f.hidden_field :invoice_id, value: @invoice.id %>
+                <%= f.hidden_field :invoice_item_id, value: ii.id %>
+                <%= f.select :status_update, ["pending", "packaged", "shipped"], selected: ii.status %>
+                <%= f.submit "Update Item Status" %>
+              <% end %></td>
+            </tr>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </table>

@@ -121,19 +121,7 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
   describe 'USER STORY 6, TOTAL REVENUE AND DISCOUNTED REVENUE' do
     before :each do
       test_data
-
-      @test_invoice = create(:invoice, customer_id: @customer1.id)
-      create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
-      create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 14, invoice_id: @test_invoice.id, status: 2)
-      create(:invoice_item, item_id: @item3.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
-    
-      expected_total = 0
-      @test_invoice.invoice_items.each do |ii|
-        expected_total+=(ii.unit_price * ii.quantity)
-      end
-      expected_total = (0.01 * expected_total).round(2)
-      @expected_revenue = sprintf('%.2f', expected_total)
-
+      test_revenue
       visit merchant_invoice_path(@merchant1, @test_invoice)
     end
 
@@ -144,7 +132,21 @@ RSpec.describe 'merchant invoices index page (/merchants/:merchant_id/invoices)'
     it "also displays the discounted revenue" do
       expect(page).to have_content("Total Discounted Revenue: $384.20")
     end
+  end
 
+  describe 'USER STORY 7, LINK TO APPLIED DISCOUNTS' do
+    before :each do
+      test_data_E5
+      visit merchant_invoice_path(@merchantA, @invoice)
+    end
+
+    it 'when visiting the show page, next to each invoice item is a link to the show page for the bulk discount' do
+      expect(page).to have_text('Bulk Discount Applied', count: 2)
+      within("#invoiceitem-#{@iitemA2.id}") do
+        click_link "Bulk Discount Applied"
+      end
+      expect(current_path).to eq(merchant_bulk_discount_path(@merchantA, @discount30))
+    end
   end
 end
 

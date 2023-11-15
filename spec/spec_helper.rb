@@ -83,18 +83,18 @@ def test_data_E3
 end
 
 def test_data_E5
-  merchantA = create(:merchant)
+  @merchantA = create(:merchant)
   merchantB = create(:merchant)
-  @itemA1 = create(:item, merchant_id: merchantA.id)
-  @itemA2 = create(:item, merchant_id: merchantA.id)
+  @itemA1 = create(:item, merchant_id: @merchantA.id)
+  @itemA2 = create(:item, merchant_id: @merchantA.id)
   @itemB = create(:item, merchant_id: merchantB.id)
   customer = create(:customer)
   @invoice = create(:invoice, customer_id: customer.id)
   @iitemA1 = create(:invoice_item, item_id: @itemA1.id, invoice_id: @invoice.id, unit_price: 500, quantity: 12)
   @iitemA2 = create(:invoice_item, item_id: @itemA2.id, invoice_id: @invoice.id, unit_price: 500, quantity: 15)
   @iitemB = create(:invoice_item, item_id: @itemB.id, invoice_id: @invoice.id, unit_price: 1200, quantity: 15)
-  discount20 = merchantA.bulk_discounts.create(discount: 20, quantity: 10)
-  discount30 = merchantA.bulk_discounts.create(discount: 30, quantity: 15)
+  discount20 = @merchantA.bulk_discounts.create(discount: 20, quantity: 10)
+  @discount30 = @merchantA.bulk_discounts.create(discount: 30, quantity: 15)
 end
 
 def test_data_2
@@ -164,6 +164,20 @@ def test_data_3
   @invoice0.update(created_at: '1999-01-01 00:00:00')
   @invoice8.update(created_at: '2008-08-08 00:00:00')
   date = Date.today.strftime('%A, %B %d, %Y')
+end
+
+def test_revenue
+  @test_invoice = create(:invoice, customer_id: @customer1.id)
+  create(:invoice_item, item_id: @item1.id, unit_price: 1500, quantity: 5, invoice_id: @test_invoice.id, status: 2)
+  create(:invoice_item, item_id: @item2.id, unit_price: 1850, quantity: 14, invoice_id: @test_invoice.id, status: 2)
+  create(:invoice_item, item_id: @item3.id, unit_price: 1200, quantity: 10, invoice_id: @test_invoice.id, status: 2)
+
+  expected_total = 0
+  @test_invoice.invoice_items.each do |ii|
+    expected_total+=(ii.unit_price * ii.quantity)
+  end
+  expected_total = (0.01 * expected_total).round(2)
+  @expected_revenue = sprintf('%.2f', expected_total)
 end
 
 def test_data_joseph
