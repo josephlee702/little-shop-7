@@ -1,6 +1,7 @@
 class MerchantInvoiceItemsController < ApplicationController
 
   def update
+    @merchant = Merchant.find(params[:merchant_id])
     @invoice_item = InvoiceItem.find(params[:invoice_item_id])
     if params[:status_update] == "pending"
       @invoice_item.update(status: "pending")

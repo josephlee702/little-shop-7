@@ -1,15 +1,15 @@
 <body>
   <div class="merch_header"> Little Esty Shop</div><br>
-  <div class ="merch_nav_button"><%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %></div>
-  <div class ="merch_nav_button"><%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %></div>
-  <div class ="merch_nav_button"><%= link_to "Merchant Dashboard", "/merchants/#{@merchant.id}" %></div>
-  <div class ="merch_current_button">Merchant Discounts</div>
+ <div class ="merch_nav_button"><%= link_to "Merchant Discounts", merchant_bulk_discounts_path(@merchant) %></div>
+ <div class ="merch_nav_button"><%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %></div>
+ <div class ="merch_nav_button"><%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %></div>
+ <div class ="merch_nav_button"><%= link_to "Merchant Dashboard", "/merchants/#{@merchant.id}/dashboard" %></div>
   <br>
   <%= link_to "Edit Discount", edit_merchant_bulk_discount_path(@merchant, @bulk_discount) %>
   <br><br><br>
-  <div class="merch_sub"><h3> <%="#{@bulk_discount.discount}% off #{@bulk_discount.quantity} items"%> Bulk Discounts</h3></div>
-  <br><br><br><br>
-  <h2>Percentage of Discount: <%= @bulk_discount.discount %>%</h2>
-  <h2>Quantity Threshold: <%= @bulk_discount.quantity %></h2>
-
+  <div class="merch_sub_full_center"><h3> <%="#{@bulk_discount.discount}% off #{@bulk_discount.quantity} items"%> Bulk Discounts</h3></div>
+  <br><br><ol>
+    <h3>Percentage of Discount: <%= @bulk_discount.discount %>%</h3>
+    <h3>Quantity Threshold: <%= @bulk_discount.quantity %></h3>
+  </ol>
 </body>

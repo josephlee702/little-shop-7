@@ -1,13 +1,13 @@
 <body>
   <div class="merch_header"> Little Esty Shop</div><br>
+  <div class ="merch_current_button">Merchant Discounts</div>
   <div class ="merch_nav_button"><%= link_to "Merchant Invoices", "/merchants/#{@merchant.id}/invoices" %></div>
   <div class ="merch_nav_button"><%= link_to "Merchant Items", "/merchants/#{@merchant.id}/items" %></div>
-  <div class ="merch_nav_button"><%= link_to "Merchant Dashboard", "/merchants/#{@merchant.id}" %></div>
-  <div class ="merch_current_button">Merchant Discounts</div><br>
+  <div class ="merch_nav_button"><%= link_to "Merchant Dashboard", "/merchants/#{@merchant.id}/dashboard" %></div><br>
   <%= link_to "Create New Discount", new_merchant_bulk_discount_path(@merchant) %>
   <br><br><br>
-  <div class="merch_sub"><h3> <%= @merchant.name %> Bulk Discounts</h3></div>
-  <br><br><br><br>
+  <div class="merch_sub_full_center"><h3> <%= @merchant.name %> Bulk Discounts</h3></div>
+  <br><br>
   <ul>
     <% @bulk_discounts.each do |d| %>
       <div id="bulkdiscount-<%= d.id %>">
