@@ -15,8 +15,12 @@ class InvoiceItem < ApplicationRecord
   end
 
   def calc_discounted_total
-    update(discounted_total: price*quantity.round(2)) if max_discount == "none"
-    return price*quantity.round(2) if max_discount == "none"
+    if max_discount == "none"
+      total = price * quantity.round(2)
+      update(discounted_total: total)
+      return total
+    end
+
     calc_discounted_total = (price * (1-max_discount.discount/100.0))*quantity.round(2)
     update(discounted_total: calc_discounted_total)
     discounted_total
