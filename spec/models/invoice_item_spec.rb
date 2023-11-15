@@ -40,4 +40,19 @@ RSpec.describe InvoiceItem, type: :model do
     end
   end
 
+  describe '#bulk_discount_applied?' do
+    before :each do
+      test_data_E5
+    end
+
+    it 'will return true if the bulk discount is applied' do
+      expect(@iitemA1.bulk_discount_applied?).to eq(true)
+      expect(@iitemA2.bulk_discount_applied?).to eq(true)
+    end
+
+    it 'will return false if not' do
+      expect(@iitemB.bulk_discount_applied?).to eq(false)
+    end
+  end
+
 end
