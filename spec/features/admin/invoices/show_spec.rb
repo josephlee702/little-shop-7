@@ -93,7 +93,6 @@ RSpec.describe "Admin Invoices Show" do
     end
 
     it 'also includes the total discounted revenue' do
-      save_and_open_page
       expect(page).to have_content("Total Discounted Revenue: $384.20")
     end
   end

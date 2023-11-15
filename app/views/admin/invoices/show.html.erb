@@ -37,7 +37,7 @@
     <tr>
       <td><%= ii.item.name %></td>
       <td><%= ii.quantity %></td>
-      <td><%= ii.price %></td>
+      <td><%= number_to_currency(ii.price) %></td>
       <td><%= ii.status.capitalize %></td>
     </tr>
       <% end %>
